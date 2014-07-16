@@ -1,0 +1,54 @@
+
+
+
+<div id="styles"> 
+  <%= render partial: "edit" %>
+
+  <div class="well">
+    <legend>Style Items</legend>
+    <table class="table table-striped">
+      <thead>
+        <%= render partial: "items/item_new" %>
+        <tr>
+          <th>ID</th>
+          <th>Size</th>
+          <th>Color</th>
+          <th>Status</th>
+          <th></th>
+          <th>price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <%- @items.each do |i| -%>
+            <%- if params[:item_id].to_i == i.id %>
+                <tr class="info row-toggle">
+            <%- else %>
+                <tr class="row-toggle">     
+            <% end %> 
+            <td><%= i.id %></td>
+            <td><%= i.size %></td>
+            <td><%= i.color %></td>
+            <td><%= i.status %></td>
+            <td><%= i.sold_at %></td>
+            <td><%= number_to_currency(i.price_sold) %></td>
+            <td><button class="btn btn-xs btn-success">Edit</button></td>
+          </tr>
+          <tr class="item-form success"  style="display:none;">
+            <%= simple_form_for i, defaults: { input_html: { class: 'form-control' } } do |f| %>
+              <td ></td>
+              <td><%= f.input :size, label: false %></td>
+              <td><%= f.input :color, label: false %></td>
+              <td><%= f.input :status, collection: Item::STATUS , label: false %></td>
+               <td><%= f.input :sold_at, as: :string, start_year: Time.now.year - 90, end_year: Time.now.year - 8, order: [:day, :month, :year], label: false %></td>
+              <td><%= f.input :price_sold, label: false %></td>
+              <td><%= f.button :submit, class: 'btn-primary btn-sm', label: false %></td>  
+            <% end %>
+          </tr>
+        <%- end -%>
+      </tbody>
+    </table>
+  </div>
+</div>

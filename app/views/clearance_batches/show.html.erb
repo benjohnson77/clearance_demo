@@ -1,0 +1,114 @@
+<h2>Items In Batch</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="text-center">
+                <i class="fa fa-search-plus pull-left icon"></i>
+                <h2>Clearance Batch <%= @items.first.clearance_batch_id %></h2>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-xs-12 col-md-3 col-lg-3 pull-left">
+                    <div class="panel panel-default height">
+                        <div class="panel-heading">Billing Details</div>
+                        <div class="panel-body">
+                            <strong>David Peere:</strong><br>
+                            1111 Army Navy Drive<br>
+                            Arlington<br>
+                            VA<br>
+                            <strong>22 203</strong><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3 col-lg-3">
+                    <div class="panel panel-default height">
+                        <div class="panel-heading">Payment Information</div>
+                        <div class="panel-body">
+                            <strong>Card Name:</strong> Visa<br>
+                            <strong>Card Number:</strong> *****<br>
+                            <strong>Exp Date:</strong> 09/2020<br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3 col-lg-3">
+                    <div class="panel panel-default height">
+                        <div class="panel-heading">Order Preferences</div>
+                        <div class="panel-body">
+                            <strong>Gift:</strong> No<br>
+                            <strong>Express Delivery:</strong> Yes<br>
+                            <strong>Insurance:</strong> No<br>
+                            <strong>Coupon:</strong> No<br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3 col-lg-3 pull-right">
+                    <div class="panel panel-default height">
+                        <div class="panel-heading">Shipping Address</div>
+                        <div class="panel-body">
+                            <strong>David Peere:</strong><br>
+                            1111 Army Navy Drive<br>
+                            Arlington<br>
+                            VA<br>
+                            <strong>22 203</strong><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="text-center"><strong>Summary</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                      <table class="table table-striped clearance_batches">
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>Style</th>
+                            <th>Size</th>
+                            <th>Color</th>
+                            <th>Status</th>
+                            <th>Wholesale</th>
+                            <th>Sold</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <%- @items.each do |i| -%>
+                            <tr>
+                              <td><%= i.id %></td>
+                              <td><%= i.style.type %></td>
+                              <td><%= i.style.name %></td>
+                              <td><%= i.size %></td>
+                              <td><%= i.color %></td>
+                              <td><%= i.status %></td>
+                              <td><%= number_to_currency(i.style.wholesale_price) %></td>
+                              <td><%= number_to_currency(i.price_sold) %></td>
+                              <td><%= link_to("Edit Style Items", styles_path(item_id: i.id, style_id: i.style.id), html_options = {class: "btn btn-primary btn-xs"}) %></td>        
+                            </tr>
+                            
+                          <%- end -%>
+                            <tr>
+                              <td colspan="7"></td>
+                              <td><strong><%= number_to_currency(@items.sum(:price_sold)) %></strong></td>
+                              <td><%= link_to("Export", items_path(clearance_batch_id: params[:clearance_batch_id], format: 'csv'), html_options = {class: "btn btn-success btn-xs"}) %></td>    
+                            </tr>
+                        </tbody>
+                      </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
