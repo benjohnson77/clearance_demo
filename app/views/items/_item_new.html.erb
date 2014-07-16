@@ -1,11 +1,11 @@
 <tr>
   <%= simple_form_for @item, defaults: { input_html: { class: 'form-control'} } do |f| %>
-    <td align="right"><strong> Add New Item to Style </strong></td>
+    <td colspan="3" align="right"><strong> Add New Item to Style </strong></td>
     <td><%= f.input :style_id, :input_html => {value: params[:style_id]}, as: 'hidden' %>
-        <%= f.input :size, label: false, required: true %></td>
-    <td><%= f.input :color, label: false, required: true %></td>
+        <%= f.input :size, label: false,  :input_html => {placeholder: "size" }%></td>
+    <td><%= f.input :color, label: false, required: true, :input_html => {placeholder: "color" } %></td>
     <td><%= f.input :status, collection: Item::STATUS , label: false, required: true %></td>
-    <td><%= f.input :price_sold, label: false %></td>
+    <td><%= f.input :price_sold, label: false, :input_html => {placeholder: "price sold" } %></td>
     <td><%= f.button :submit, class: 'btn-primary btn-sm', label: false, required: true %></td>  
   <% end %>
 </tr> 

@@ -2,7 +2,7 @@ class StylesController < ApplicationController
 	#ParentsController
 	def create	
   	@style = Style.create style_params
-    render :index
+    redirect_to styles_path(style_id: @style.id) 
   end
 
   def index

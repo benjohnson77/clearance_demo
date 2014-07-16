@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
 
   def index
-    @items = Item.style.sellable
+    @items = Item.includes(:style).where("status = 'sellable'")
     @style = Style.new
     @item = Item.new
     @clearance_batch = ClearanceBatch.new

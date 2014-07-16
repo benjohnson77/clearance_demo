@@ -24,7 +24,6 @@ class Item < ActiveRecord::Base
   belongs_to :style
   belongs_to :clearance_batch
   scope :sellable, -> { where(status: "sellable") }
-  scope :style, -> { includes(:style) }
 
   def perform_clearance
     price_sold  = style.wholesale_price * BigDecimal.new(CLEARANCE_PRICE_PERCENTAGE)

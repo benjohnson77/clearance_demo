@@ -45,7 +45,7 @@ $(document).ready(function($){
 
    	$('#items').on("click", ".batch-me", function() { 
 		var item_a = $('#items').data('items')
-		alert(item_a);
+		//alert(item_a);
 		document.location.href = "/clearance_batches?items="+item_a
 	}); 
 }); 

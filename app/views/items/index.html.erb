@@ -2,11 +2,13 @@
   <%= render partial: "styles/edit" %>
   <div class="well">
     
-  
-    <button class="btn btn-primary btn-lg pull-right batch-me" >Batch Items</button>
     <table class="table table-striped">
       <thead>
-        <%= render partial: "item_new" %>
+        <tr>
+          <td colspan="7"></td>
+          <td><button class="btn btn-success batch-me" >Batch Items</button></td>
+        </tr>
+        <%= render partial: "items/item_new" %>
         <tr>
           <th>ID</th>
           <th>Type</th>
@@ -14,43 +16,30 @@
           <th>Size</th>
           <th>Color</th>
           <th>Status</th>
-          <th>price</th>
+          <th>Wholesale</th>
           <th>Actions</th>
         </tr>
       </thead>
 
       <tbody>
-        <%- @items.each do |i| -%>
-            <%- if params[:item_id].to_i == i.id %>
-                <tr class="info row-toggle">
-            <%- else %>
-                <tr class="row-toggle">     
-            <% end %>
-            <td><%= i.id %></td>
-            <td><%= i.style.type %></td>
-            <td><%= i.style.name %></td>
-            <td><%= i.size %></td>
-            <td><%= i.color %></td>
-            <td><%= i.status %></td>
-            <td><%= number_to_currency(i.style.wholesale_price) %></td>
-            <td><%= number_to_currency(i.price_sold) %></td>
-            <td><%= link_to("Edit Style Items", styles_path(item_id: i.id, style_id: i.style.id), html_options = {class: "btn btn-primary btn-xs"}) %>
-              <button id="item-<%= i.id %>" class="btn btn-success btn-xs ad-batch">Add to Batch</button>
-            </td>
-          </tr>
-
-          <tr class="item-form success"  style="display:none;">
-            <%- simple_form_for i, defaults: { input_html: { class: 'form-control' } } do |f| %>
-              <td colspan="4"></td>
-              <td><%= f.input :size, label: false %></td>
-              <td><%= f.input :color, label: false %></td>
-              <td><%= f.input :status, collection: Item::STATUS , label: false %></td>
-              <td><%= f.input :price_sold, label: false %></td>
-              <td><%= f.button :submit, class: 'btn-primary btn-sm' %>
-              </td>  
-            <%- end -%>
-          </tr>
-        <%- end -%>
+          <%-  @items.each do |i| -%>
+              <%- if params[:item_id].to_i == i.id %>
+                  <tr class="info row-toggle">
+              <%- else %>
+                  <tr class="row-toggle">     
+              <% end %>
+              <td><%= i.id %></td>
+              <td><%= i.style.type %></td>
+              <td><%= i.style.name %></td>
+              <td><%= i.size %></td>
+              <td><%= i.color %></td>
+              <td><%= i.status %></td>
+              <td><%= number_to_currency(i.style.wholesale_price) %></td>
+              <td><%= link_to("Edit Style Items", styles_path(item_id: i.id, style_id: i.style.id), html_options = {class: "btn btn-primary btn-xs"}) %>
+                <button id="item-<%= i.id %>" class="btn btn-success btn-xs ad-batch">Add to Batch</button>
+              </td>
+            </tr>
+          <%- end -%>
       </tbody>
     </table>
   </div>
